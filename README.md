@@ -14,7 +14,7 @@ Install a master and worker Buildbot(version 0.9.0rc1) with the default configur
 NOTE
 ----
 
-[Followed latest guide] : (http://docs.buildbot.net/latest/tutorial/index.html)
+Followed latest guide : http://docs.buildbot.net/latest/tutorial/index.html
 
 Right now, this cookbook is functional and will create a _master_ and _worker_
 with the same configuration the  Latest Official Guide provides and additionally it provides Docker Worker installation.
