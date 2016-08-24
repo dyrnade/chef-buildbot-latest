@@ -1,9 +1,17 @@
-language: ruby
-rvm:
-  - 2.2
-bundler_args: --deployment --binstubs
-before_script:
-   - ./bin/berks install
-script:
-   - ./bin/foodcritic -f any .
-   - ./bin/rake
+language: generic
+
+sudo: false
+
+env:
+  global:
+  - PATH="/opt/chefdk/bin:/opt/chef/bin:/opt/chef/embedded/bin:/opt/chefdk/embedded/bin:$PATH"
+  matrix:
+  - COOKBOOK_PATH="."
+addons:
+  apt:
+    sources:
+    - chef-stable-precise
+    packages:
+    - chefdk
+
+script: ./runtests
