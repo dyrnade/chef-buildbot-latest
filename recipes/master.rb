@@ -24,6 +24,14 @@ master_basedir = ::File.join(node['buildbot']['master']['deploy_to'],
 master_cfg     = ::File.join(master_basedir,
                              node['buildbot']['master']['cfg'])
 options        = node['buildbot']['master']['options']
+worker_ipaddress = ''
+
+if Chef::Config[:solo]
+  Chef::Log.warn('This recipe uses search. Chef Solo does not support search.')
+else
+  nodes = search(:node, "tags:buildbot_worker AND chef_environment:#{node.chef_environment}")
+  worker_ipaddress = nodes[0]['ipaddress']
+end
 
 # Install the Python package
 python_package ['buildbot','buildbot-www','buildbot-waterfall-view','buildbot-console-view'] do
@@ -69,7 +77,10 @@ template master_cfg do
     :docker_workers => node['buildbot']['workers']['docker'],
     :builders      => node['buildbot']['builders'],
     :steps         => node['buildbot']['steps'],
-    :schedulers    => node['buildbot']['schedulers']
+    :schedulers    => node['buildbot']['schedulers'],
+    :worker_ipaddress => worker_ipaddress
   )
   notifies :run, resources(:execute => "Start the master"), :immediately
 end
+
+tag('buildbot_master')
