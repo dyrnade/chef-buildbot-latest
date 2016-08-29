@@ -9,7 +9,8 @@ https://github.com/nkadel/chef-buildbot
 Description
 ===========
 
-Install a master and worker Buildbot(version 0.9.0rc1) with the default configuration
+Install a master and worker Buildbot(version 0.9.0rc1) with the default configuration and additionally Docker Workers
+by chef search within tags.
 
 NOTE
 ----
@@ -44,6 +45,19 @@ You can create a Buildbot box just adding the default recipe to the node's _runl
 
 But you also can create separate boxes, master and workers, by adding just the recipe `master`
 or the recipe `worker`.
+
+Master and Worker Configs will be created at chef run time, so to modify them through your needs, you need to edit
+`master.cfg.erb` and `worker.cfg.erb` files.
+
+Master will be tagged as ```buildbot_master``` and Worker will be tagged as ```buildbot_worker```
+
+This is good for flexibility and to run Docker Workers properly.
+
+For Docker Workers;
+
+in ```master.cfg.erb``` you can specify your Docker Worker properties.
+
+
 
 Test
 ====
