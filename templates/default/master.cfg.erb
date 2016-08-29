@@ -23,11 +23,14 @@ c['workers'] = [ <% @workers.each do |worker| %>
     worker.Worker("<%= worker['name'] %>", "<%= worker['password'] %>"),
 <% end %>]
 
-# Docker Workers
-<% @docker_workers.each do |docker| %>
-  c['workers'].append(<%= docker %>)
- <% end %>
-
+#This explicitly needs to be done here to run Docker Workers
+c['workers'].append(worker.DockerLatentWorker(
+        'test-worker',
+        'test-worker-password',
+        docker_host='tcp://<%= @worker_ipaddress %>:2375',
+        image='docker/image',
+        version='version')
+)
 # 'protocols' contains information about protocols which master will use for
 # communicating with workers. You must define at least 'port' option that workers
 # could connect to your master with this protocol.
