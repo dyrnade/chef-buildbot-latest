@@ -38,23 +38,10 @@ default['buildbot']['worker']['basedir'] = 'worker'
 default['buildbot']['worker']['admin'] = 'Your Name Here <admin@youraddress.invalid>'
 default['buildbot']['worker']['host_info'] = ''
 
-# Info for the master. This is for the case when it is deployed with chef-solo
-# One Master and one worker.
-# For Chef Server it should be discovered by searching
 default['buildbot']['workers'] = [{
   'name'     => node['buildbot']['worker']['name'],
   'password' => node['buildbot']['worker']['password']
 }]
-
-# Docker Worker
-default['buildbot']['workers']['docker'] = [
-    "worker.DockerLatentWorker(
-        'test-worker',
-        'test-worker-password',
-        docker_host=#{node['ipadress']},
-        image='docker/image',
-        version='version')",
-]
 
 # Change Source
 default['buildbot']['change_source'] = ["changes.GitPoller(
