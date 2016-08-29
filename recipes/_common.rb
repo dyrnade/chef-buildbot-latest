@@ -36,20 +36,3 @@ end
 package 'build-essential' do
   action :install
 end
-
-# Eventually replace with attribute selectable list
-# Add "python-twisted", because pip tries to install
-# incompatible versions of python tools
-## Install the system's dependencies
-#packages = value_for_platform(
-#  ["centos", "redhat", "suse", "fedora" ] => {
-#    "default" => %w{ git python-devel }
-#  },
-#  ["ubuntu", "debian"] => {
-#    "default" => %w{ git-core python-dev }
-#  }
-#)
-#
-#packages.each do |pkg|
-#  package pkg
-#end
